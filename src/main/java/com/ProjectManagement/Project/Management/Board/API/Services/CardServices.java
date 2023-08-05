@@ -1,6 +1,8 @@
 package com.ProjectManagement.Project.Management.Board.API.Services;
 
+import com.ProjectManagement.Project.Management.Board.API.Models.Board;
 import com.ProjectManagement.Project.Management.Board.API.Models.Card;
+import com.ProjectManagement.Project.Management.Board.API.Repositories.BoardRepository;
 import com.ProjectManagement.Project.Management.Board.API.Repositories.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +12,14 @@ import java.util.Optional;
 
 @Service
 
-public class CardServises {
-
-
-    public CardRepository cardRepository;
+public class CardServices {
 
     @Autowired
+    public CardRepository cardRepository;
+    @Autowired
+    public BoardRepository boardRepository;
+
+
     public void CardService(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
@@ -25,8 +29,8 @@ public class CardServises {
     }
 
     public List<Card> getAllCards(Long boardId) {
-        // Implement logic to retrieve all cards for a specific board
-        return cardRepository.findByBoardId(boardId);
+
+        return boardRepository.findCardListById(boardId);
     }
 
     public Optional<Card> getCardById(Long cardId) {
@@ -40,11 +44,4 @@ public class CardServises {
     public void deleteCard(Card card) {
         cardRepository.delete(card);
     }
-
-
-
-
-
-
-
 }

@@ -1,13 +1,12 @@
 package com.ProjectManagement.Project.Management.Board.API.Models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +19,9 @@ public class Board {
     private Long id;
     public String title;
     public String columns;
+
+    @OneToMany
+    List<Card> cards;
     public Long getId() {
         return id;
     }

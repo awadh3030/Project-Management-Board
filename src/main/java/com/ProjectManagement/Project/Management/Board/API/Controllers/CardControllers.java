@@ -1,9 +1,10 @@
 package com.ProjectManagement.Project.Management.Board.API.Controllers;
 
+import com.ProjectManagement.Project.Management.Board.API.Models.Board;
 import com.ProjectManagement.Project.Management.Board.API.Models.Card;
 import com.ProjectManagement.Project.Management.Board.API.RequestObjects.GetCardRequestObjects;
 import com.ProjectManagement.Project.Management.Board.API.ResponseObjects.MessageResponse;
-import com.ProjectManagement.Project.Management.Board.API.Services.CardServises;
+import com.ProjectManagement.Project.Management.Board.API.Services.CardServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class CardControllers {
 
     @Autowired
-    public CardServises cardServices;
+    public CardServices cardServices;
 
 
 
@@ -37,7 +38,7 @@ public class CardControllers {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllCards(@PathVariable("board_id") Long boardId) {
+    public ResponseEntity<Object> getAllCards(@PathVariable("board_id") long boardId) {
         List<Card> cards = cardServices.getAllCards(boardId);
         return ResponseEntity.ok(cards);
     }
