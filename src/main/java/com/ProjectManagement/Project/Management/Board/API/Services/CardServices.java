@@ -29,8 +29,8 @@ public class CardServices {
     }
 
     public List<Card> getAllCards(Long boardId) {
-
-        return boardRepository.findCardListById(boardId);
+        Board currBoard = boardRepository.findById(boardId).get();
+        return currBoard.cards;
     }
 
     public Optional<Card> getCardById(Long cardId) {

@@ -16,12 +16,13 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false)
     private Long id;
     public String title;
     public String columns;
 
-    @OneToMany
-    List<Card> cards;
+    @OneToMany(mappedBy="board")
+    public List<Card> cards;
     public Long getId() {
         return id;
     }

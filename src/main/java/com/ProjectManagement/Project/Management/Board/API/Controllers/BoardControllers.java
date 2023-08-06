@@ -9,9 +9,7 @@ import jakarta.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/boards")
@@ -23,19 +21,19 @@ public class BoardControllers {
     public BoardRepository boardRepository;
 
     @PostMapping("/createBoard")
-
     public Board createBoard(@RequestBody Board newBoard) {
+        newBoard.setColumns("1: To do, 2: In progress, 3: Done");
         boardRepository.save(newBoard);
         return newBoard;
     }
 
-    public void createBoardFromRequest(@RequestBody GetBoardRequestObjects boardRequestObjects) {
+    public void  createBoardFromRequest(@RequestBody GetBoardRequestObjects boardRequestObjects) {
         Board board = new Board();
         board.setTitle(boardRequestObjects.getTitle());
         board.setId(1L);
-        board.setColumns(Arrays.toString(new String[]{1+"To do", 2+"In progress", 3+"Done"}));
         boardServices.saveBoard(board);
     }
+
 
 
     @GetMapping

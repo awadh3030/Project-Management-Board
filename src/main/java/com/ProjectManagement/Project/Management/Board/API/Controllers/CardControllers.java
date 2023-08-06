@@ -2,8 +2,10 @@ package com.ProjectManagement.Project.Management.Board.API.Controllers;
 
 import com.ProjectManagement.Project.Management.Board.API.Models.Board;
 import com.ProjectManagement.Project.Management.Board.API.Models.Card;
+import com.ProjectManagement.Project.Management.Board.API.Repositories.BoardRepository;
 import com.ProjectManagement.Project.Management.Board.API.RequestObjects.GetCardRequestObjects;
 import com.ProjectManagement.Project.Management.Board.API.ResponseObjects.MessageResponse;
+import com.ProjectManagement.Project.Management.Board.API.Services.BoardServices;
 import com.ProjectManagement.Project.Management.Board.API.Services.CardServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,25 +15,28 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/boards/{id}/cards")
+@RequestMapping("/api/boards/{board_id}/cards")
 @CrossOrigin("*")
 public class CardControllers {
 
     @Autowired
     public CardServices cardServices;
 
+    @Autowired
+    BoardServices boardServices;
+
 
 
     @PostMapping
     public ResponseEntity<Card> createCard(
             @PathVariable("board_id") Long boardId,
-            @RequestBody GetCardRequestObjects.CardRequest cardRequest) {
+            @RequestBody GetCardRequestObjects cardRequest) {
 
         Card newCard = new Card();
         newCard.setTitle(cardRequest.getTitle());
         newCard.setDescription(cardRequest.getDescription());
         newCard.setSection(cardRequest.getSection());
-
+        newCard.setBoard(boardServices.getBoardById(boardId));
         Card savedCard = cardServices.saveCard(newCard);
 
         return ResponseEntity.ok(savedCard);
@@ -56,7 +61,7 @@ public class CardControllers {
     public ResponseEntity<Card> updateCard(
             @PathVariable("board_id") Long boardId,
             @PathVariable("card_id") Long cardId,
-            @RequestBody GetCardRequestObjects.CardRequest cardRequest) {
+            @RequestBody GetCardRequestObjects cardRequest) {
 
         Optional<Card> optionalCard = cardServices.getCardById(cardId);
         if (optionalCard.isPresent()) {
