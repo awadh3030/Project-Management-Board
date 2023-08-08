@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
             section: parseInt(section)
         };
 
-        axios.post(`${apiUrl}/boards/2/cards`, data)
+        axios.post(`${apiUrl}/boards/1/cards`, data)
             .then(response => {
                 const newCard = response.data;
                 displayCard(newCard);
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to delete a card
     function deleteCard(cardId) {
-        axios.delete(`${apiUrl}/boards/2/cards/${cardId}`)
+        axios.delete(`${apiUrl}/boards/1/cards/${cardId}`)
             .then(() => {
                 // Remove the card element from the UI
                 const cardElement = document.getElementById(`card_${cardId}`);
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
             section: parseInt(section)
         };
 
-        axios.put(`${apiUrl}/boards/2/cards/${cardId}`, data)
+        axios.put(`${apiUrl}/boards/1/cards/${cardId}`, data)
             .then(response => {
                 const updatedCard = response.data;
                 // Update card details in the UI
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Event listener for loading delete card select options
     deleteForm.addEventListener("click", function() {
-        axios.get(`${apiUrl}/boards/2/cards`)
+        axios.get(`${apiUrl}/boards/1/cards`)
             .then(response => {
                 const cards = response.data;
                 populateDeleteCardSelect(cards);
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to fetch and display existing cards
     function loadCards() {
-        axios.get(`${apiUrl}/boards/2/cards`)
+        axios.get(`${apiUrl}/boards/1/cards`)
             .then(response => {
                 const cards = response.data;
                 cards.forEach(displayCard);
