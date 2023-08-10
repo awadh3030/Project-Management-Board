@@ -21,7 +21,7 @@ services:
     ports:
       - "9092:80"
     volumes:
-      -  ./src/main/resources/static/ProjectTask:/usr/share/nginx/html
+      -  ./src/main/resources/static/Static:/usr/share/nginx/html
     restart: on-failure
     depends_on:
       - gapi
